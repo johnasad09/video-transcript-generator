@@ -11,12 +11,12 @@ Flow:
 
 import requests
 import streamlit as st
-from dotenv import load_dotenv
+# from dotenv import load_dotenv
 # import os
 
 from url_validator import is_valid_url
 
-load_dotenv()
+# load_dotenv()
 
 st.set_page_config(page_title="Transcript Generator", layout="centered")
 st.title("Video Transcript Generator")
