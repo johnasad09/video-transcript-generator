@@ -1,13 +1,4 @@
-"""
-main.py - Streamlit app that sends a URL to an n8n webhook and displays the response.
 
-Flow:
-  1. User enters a URL
-  2. URL is validated (url_validator.py)
-  3. Valid URL is POSTed to the n8n webhook trigger
-  4. n8n processes it and responds via its "Respond to Webhook" node
-  5. The response is displayed in the UI
-"""
 
 import requests
 import streamlit as st
