@@ -9,7 +9,7 @@ from url_validator import is_valid_url
 
 # load_dotenv()
 
-st.set_page_config(page_title="Transcript Generator", layout="centered")
+st.set_page_config(page_title="Transcript Generator", layout="wide")
 st.title("Video Transcript Generator")
 
 webhook_url = st.secrets["config"]["N8N_WEBHOOK_URL"]
@@ -86,18 +86,22 @@ if submitted:
         st.session_state.summary = response.text.strip()
         st.session_state.transcript = ""
 
+    st.rerun()
+
 # Display persisted results
 if st.session_state.summary is not None:
     col1, col2 = st.columns(2)
     with col1:
-        st.subheader("Transcript")
-        if st.session_state.transcript:
-            st.markdown(st.session_state.transcript)
-        else:
-            st.warning("No transcript returned.")
+        with st.container(border=True):
+            st.subheader("Transcript")
+            if st.session_state.transcript:
+                st.markdown(st.session_state.transcript)
+            else:
+                st.warning("No transcript returned.")
     with col2:
-        st.subheader("Summary")
-        if st.session_state.summary:
-            st.markdown(st.session_state.summary)
-        else:
-            st.warning("Empty response returned.")
+        with st.container(border=True):
+            st.subheader("Summary")
+            if st.session_state.summary:
+                st.markdown(st.session_state.summary)
+            else:
+                st.warning("Empty response returned.")
