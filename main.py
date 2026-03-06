@@ -25,7 +25,20 @@ url_input = st.text_input(
     placeholder="Paste Video URL (YouTube, Insta, TikTok)",
 )
 
-submitted = st.button("Transcribe", type="primary")
+btn_col1, btn_col2 = st.columns([1, 1])
+with btn_col1:
+    submitted = st.button("Transcribe", type="primary", use_container_width=True)
+with btn_col2:
+    _transcript = st.session_state.transcript or ""
+    if _transcript:
+        st.download_button(
+            label="Download Transcript",
+            data=_transcript,
+            file_name="transcript.txt",
+            mime="text/plain",
+            type="primary",
+            use_container_width=True,
+        )
 
 if submitted:
     # Clear previous results when a new request is made
@@ -75,17 +88,16 @@ if submitted:
 
 # Display persisted results
 if st.session_state.summary is not None:
-    st.subheader("Result")
-    if st.session_state.summary:
-        st.markdown(st.session_state.summary)
-    else:
-        st.warning("Empty response returned.")
-
-    if st.session_state.transcript:
-        st.download_button(
-            label="Download Transcript",
-            data=st.session_state.transcript,
-            file_name="transcript.txt",
-            mime="text/plain",
-            type="primary",
-        )
+    col1, col2 = st.columns(2)
+    with col1:
+        st.subheader("Transcript")
+        if st.session_state.transcript:
+            st.markdown(st.session_state.transcript)
+        else:
+            st.warning("No transcript returned.")
+    with col2:
+        st.subheader("Summary")
+        if st.session_state.summary:
+            st.markdown(st.session_state.summary)
+        else:
+            st.warning("Empty response returned.")
