@@ -25,7 +25,7 @@ url_input = st.text_input(
     placeholder="Paste Video URL (YouTube, Insta, TikTok)",
 )
 
-btn_col1, btn_col2 = st.columns([1, 1])
+btn_col1, btn_col2, btn_col3 = st.columns(3)
 with btn_col1:
     submitted = st.button("Transcribe", type="primary", use_container_width=True)
 with btn_col2:
@@ -35,6 +35,17 @@ with btn_col2:
             label="Download Transcript",
             data=_transcript,
             file_name="transcript.txt",
+            mime="text/plain",
+            type="primary",
+            use_container_width=True,
+        )
+with btn_col3:
+    _summary = st.session_state.summary or ""
+    if _summary:
+        st.download_button(
+            label="Download Summary",
+            data=_summary,
+            file_name="summary.txt",
             mime="text/plain",
             type="primary",
             use_container_width=True,
